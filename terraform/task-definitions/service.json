@@ -1,7 +1,7 @@
 [
   {
     "name": "onlineconsultations",
-    "image": "hello-world",
+    "image": "opengp/onlineconsultations",
     "cpu": 512,
     "memory": 512,
     "essential": true,

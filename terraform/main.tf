@@ -104,6 +104,7 @@ module "this" {
 
   image_id             = data.aws_ami.amazon_linux_ecs.id
   instance_type        = "t2.micro"
+  security_groups      = [module.vpc.default_security_group_id, aws_security_group.ec2_instance.id]
   iam_instance_profile = aws_iam_instance_profile.this.id
   user_data            = data.template_file.user_data.rendered
 
@@ -133,6 +134,24 @@ module "this" {
 module "ecs" {
   source = "terraform-aws-modules/ecs/aws"
   name   = local.name
+}
+
+resource "aws_security_group" "ec2_instance" {
+  name = "ec2_instance_onlineconsulations"
+  description = "Allow traffic from lb and to outside world to register to ecs"
+  vpc_id = module.vpc.vpc_id
+  ingress {
+    security_groups = [aws_security_group.public_lb.id]
+    from_port = 80
+    to_port = 80
+    protocol = "tcp"
+  }
+  egress {
+    from_port = 0
+    to_port = 0
+    cidr_blocks = ["0.0.0.0/0"]
+    protocol = "tcp"
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "ecs_ec2_role" {
@@ -201,7 +220,7 @@ module "alb" {
       health_check = {
         healthy_threshold = 2
         unhealthy_threshold = 7
-        path = "/"
+        path = "/actuator/health"
         matcher = "200,301,302"
       }
     }
