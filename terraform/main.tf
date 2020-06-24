@@ -137,7 +137,7 @@ module "ecs" {
 }
 
 resource "aws_security_group" "ec2_instance" {
-  name = "ec2_instance_onlineconsulations"
+  name = "ec2_instance_onlineconsultations"
   description = "Allow traffic from lb and to outside world to register to ecs"
   vpc_id = module.vpc.vpc_id
   ingress {
@@ -164,21 +164,24 @@ resource "aws_iam_role_policy_attachment" "ecs_ec2_cloudwatch_role" {
   policy_arn = "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
 }
 
-resource "aws_ecs_task_definition" "onlineconsulations" {
-  family = "onlineconsulations"
+resource "aws_ecs_task_definition" "onlineconsultations" {
+  family = "onlineconsultations"
 
   container_definitions = data.template_file.task_definition.rendered
 }
 
 data "template_file" "task_definition" {
   template = file("task-definitions/service.json")
-
+  
+  vars = {
+    onlineconsultations_version = var.onlineconsultations_version
+  }
 }
 
-resource "aws_ecs_service" "onlineconsulations" {
+resource "aws_ecs_service" "onlineconsultations" {
   name = local.name
   cluster = module.ecs.this_ecs_cluster_id
-  task_definition = aws_ecs_task_definition.onlineconsulations.arn
+  task_definition = aws_ecs_task_definition.onlineconsultations.arn
 
   desired_count = 1
 

@@ -37,7 +37,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: opengp/onlineconsultations
-          tags: ${{env.GITHUB_SHA}}
+          tag_with_sha: true
 
   deploy-to-ecs:
     # The type of runner that the job will run on
@@ -71,3 +71,5 @@ jobs:
         tf_actions_subcommand: 'apply'
         tf_actions_working_dir: ${{ env.tf_working_dir }}
         tf_actions_comment: false
+      env:
+        TF_VAR_onlineconsultations_version: sha-${{ env.GITHUB_SHA }}

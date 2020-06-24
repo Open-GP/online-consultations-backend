@@ -1,7 +1,7 @@
 [
   {
     "name": "onlineconsultations",
-    "image": "opengp/onlineconsultations",
+    "image": "opengp/onlineconsultations:${onlineconsultations_version}",
     "cpu": 512,
     "memory": 512,
     "essential": true,
