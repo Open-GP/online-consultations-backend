@@ -42,7 +42,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: opengp/onlineconsultations
-          tags: $VERSION
+          tags: ${{VERSION}}
 
   deploy-to-ecs:
     # The type of runner that the job will run on
