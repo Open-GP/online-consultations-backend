@@ -6,7 +6,6 @@ plugins {
 }
 
 group = 'org.opengp'
-//version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '14'
 
 repositories {
@@ -34,4 +33,10 @@ dependencyManagement {
 
 test {
 	useJUnitPlatform()
+}
+
+ZoltuGitVersioning {
+    customVersionToString { versionInfo ->
+        "${versionInfo.major}.${versionInfo.minor}.${versionInfo.commitCount}-${versionInfo.sha}"
+    }
 }
