@@ -2,10 +2,10 @@ plugins {
 	id 'org.springframework.boot' version '2.3.1.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
-	id "com.zoltu.git-versioning" version "3.0.3"
 }
 
 group = 'org.opengp'
+version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '14'
 
 repositories {
@@ -33,10 +33,4 @@ dependencyManagement {
 
 test {
 	useJUnitPlatform()
-}
-
-ZoltuGitVersioning {
-    customVersionToString { versionInfo ->
-        "${versionInfo.major}.${versionInfo.minor}.${versionInfo.commitCount}-${versionInfo.sha}"
-    }
 }
