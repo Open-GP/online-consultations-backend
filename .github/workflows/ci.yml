@@ -31,7 +31,11 @@ jobs:
       - uses: eskatos/gradle-command-action@v1
         with:
           arguments: build
-      
+
+      - name: Set version as output
+        id: get_version
+        run: echo "::set-output name=version::$(echo $GITHUB_SHA | cut -c 1-7)"
+
       - uses: docker/build-push-action@v1
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
@@ -72,4 +76,4 @@ jobs:
         tf_actions_working_dir: ${{ env.tf_working_dir }}
         tf_actions_comment: false
       env:
-        TF_VAR_onlineconsultations_version: sha-${{ env.GITHUB_SHA }}
+        TF_VAR_onlineconsultations_version: sha-${{ needs.build.outputs.version }}
