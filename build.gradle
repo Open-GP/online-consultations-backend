@@ -19,6 +19,8 @@ ext {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'ca.uhn.hapi.fhir:hapi-fhir-spring-boot-starter:5.0.1'
+	implementation 'ca.uhn.hapi.fhir:hapi-fhir-jaxrsserver-base:5.0.2'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}

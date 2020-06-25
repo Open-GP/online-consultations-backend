@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class QuestionnaireController {
 
     @GetMapping("/questionnaire")
-    public Questionnaire get() {
-        return new Questionnaire("Sample questionnaire");
+    public QuestionnaireModel get() {
+        return new QuestionnaireModel("Sample questionnaire");
     }
 
 }
